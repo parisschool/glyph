@@ -2,12 +2,20 @@ class Stack:
     def __init__(self):
         self.items = []
 
+    def is_empty(self):
+        return len(self.items) == 0
+    
     def push(self, item):
         self.items.append(item)
 
     def pop(self):
         return self.items.pop() if self.items else None
-
+    
+    def peek(self):
+        if self.is_empty():
+            return None
+        return self.items[-1] # El último de la lista es el tope de la pila
+    
     def show(self):
         visualize_stack(self.items)
 
@@ -20,6 +28,11 @@ class Queue:
 
     def dequeue(self):
         return self.items.pop(0) if self.items else None
+    
+    def front(self):
+        if self.is_empty():
+            return None
+        return self.items[0] # El índice 0 es el frente de la cola
 
     def show(self):
         visualize_queue(self.items)

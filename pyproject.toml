@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "glyph-viz"
-version = "0.2.0"
+version = "0.2.8"
 authors = [
   { name="Paris Adrián López Ruelas", email="plopezru@itam.mx" },
 ]
@@ -20,3 +20,4 @@ classifiers = [
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["glyph*"]
+exclude = ["tutorial.ipynb", "tests*", "docs*"]
