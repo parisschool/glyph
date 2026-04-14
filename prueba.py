@@ -1,10 +1,10 @@
 import time
-from estructuras.trees import AVLTree
-from estructuras.heaps import MinHeap
-from estructuras.lists import SkipList
-from estructuras.tables import HashTable, BloomFilter
-from estructuras.linear import Stack, Queue
-from estructuras.utils import Style, colorize
+from glyph.trees import AVLTree
+from glyph.heaps import MinHeap
+from glyph.lists import SkipList
+from glyph.tables import HashTable, BloomFilter
+from glyph.linear import Stack, Queue
+from glyph.utils import Style, colorize
 
 def header(text):
     print("\n" + colorize(" " + text + " ", Style.B_BLUE + Style.RED + Style.BOLD).center(80, "="))

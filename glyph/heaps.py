@@ -49,5 +49,43 @@ class MinHeap:
             else:
                 break
 
+    def extract_min(self):
+        if not self.heap:
+            return None
+        
+        # Caso especial: solo hay un elemento
+        if len(self.heap) == 1:
+            return self.heap.pop()
+        
+        # 1. Guardamos el mínimo (raíz) para devolverlo al final
+        root = self.heap[0]
+        
+        # 2. Movemos el último elemento a la raíz
+        self.heap[0] = self.heap.pop()
+        
+        # 3. Reacomodamos hacia abajo (Shift Down / Heapify Down)
+        self._shift_down(0)
+        
+        return root
+
+    def _shift_down(self, index):
+        smallest = index
+        left = 2 * index + 1
+        right = 2 * index + 2
+        n = len(self.heap)
+
+        # ¿El hijo izquierdo es menor que el padre?
+        if left < n and self.heap[left] < self.heap[smallest]:
+            smallest = left
+            
+        # ¿El hijo derecho es menor que el que llevamos como más pequeño?
+        if right < n and self.heap[right] < self.heap[smallest]:
+            smallest = right
+            
+        # Si hubo cambios, intercambiamos y seguimos bajando
+        if smallest != index:
+            self.heap[index], self.heap[smallest] = self.heap[smallest], self.heap[index]
+            self._shift_down(smallest)
+
     def show(self):
         visualize_heap(self.heap)

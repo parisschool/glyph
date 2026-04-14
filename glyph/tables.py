@@ -28,6 +28,29 @@ class HashTable:
     def show(self):
         visualize_hash_table(self.table)
 
+    def search(self, key):
+        # 1. Calcular en qué cubeta debería estar
+        index = self._hash(key)
+        bucket = self.table[index]
+        
+        for i in range(len(bucket)):
+            if bucket[i][0] == key:
+                return bucket[i][1] # Devolvemos el valor
+                
+        return None # No se encontró
+    
+    def delete(self, key):
+        # 1. Calcular el índice
+        index = self._hash(key)
+        bucket = self.table[index]
+        
+        for i in range(len(bucket)):
+            if bucket[i][0] == key:
+                bucket.pop(i)
+                return True # Borrado 
+                
+        return False # La llave no existía
+
     @property
     def load_factor(self):
         """Indica qué tan llena está la tabla."""
@@ -91,6 +114,41 @@ class BloomFilter:
         status = colorize("POSIBLEMENTE ESTÁ", Style.B_GREEN) if result else colorize("NO ESTÁ", Style.B_RED)
         print(f"¿Contiene '{item}'? {status} (Chequeando índices: {indices})")
         return result
+    
+    def show(self, hash_results=None):
+        """
+        Visualiza el vector de bits. 
+        'hash_results' puede ser una lista de índices para resaltar qué 
+        bits se activaron en la última operación.
+        """
+        print(colorize("\n=== BLOOM FILTER (BIT VECTOR) ===", Style.BOLD + Style.CYAN))
+        
+        # Si el filtro es muy grande, lo cortamos para que no se vea mal en terminal
+        display_size = min(len(self.bit_array), 32)
+        
+        indices = ""
+        bits = ""
+        
+        for i in range(display_size):
+            val = self.bit_array[i]
+            indices += f" {i} ".center(5)
+            
+            # Lógica de colores
+            if hash_results and i in hash_results:
+                color = Style.B_YELLOW  # Resaltar bits recién calculados
+            elif val:
+                color = Style.B_GREEN   # Bit encendido
+            else:
+                color = Style.BLUE      # Bit apagado
+                
+            char = " [1] " if val else " [0] "
+            bits += colorize(char.center(5), color)
+        
+        print(indices)
+        print(bits)
+        
+        if len(self.bit_array) > 32:
+            print(colorize(f"... (mostrando 32 de {len(self.bit_array)} bits) ...", Style.DIM))
 
 def visualize_bloom(bit_array, hash_results=None):
     print(colorize("\n=== BLOOM FILTER (BIT VECTOR) ===", Style.BOLD + Style.CYAN))

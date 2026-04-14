@@ -67,6 +67,29 @@ class SkipList:
             curr_base.up = up_node
             curr_base = up_node
 
+    def search(self, val):
+        pos = self._find_position(val)
+        return pos is not None and pos.val == val
+
+    def delete(self, val):
+        curr = self.top_head
+        found = False
+        
+        # Navegamos niveles
+        while curr:
+            while curr.next and curr.next.val < val:
+                curr = curr.next
+            
+            if curr.next and curr.next.val == val:
+                curr.next = curr.next.next
+                found = True
+                
+            # Bajamos de nivel para repetir el proceso
+            curr = curr.down
+            
+        return found
+
+
     def show(self):
         layers = []
         curr_h = self.head
