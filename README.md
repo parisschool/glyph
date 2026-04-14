@@ -13,4 +13,4 @@ pip install glyph-viz
 ```
 
 ## Ejemplos de uso
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/parisschool/glyph-viz/blob/main/tutorial.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/parisschool/glyph/blob/main/tutorial.ipynb)
